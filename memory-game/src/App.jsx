@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './App.scss'
+import Card from './components/Card'
 
 
 const imagesArray = [
   {"src": "/img/crab.png"},
   {"src": "img/elephant.png"},
   {"src": "/img/giraffe.png"},
-  {"src": "/img/lion.png"},
+  {"src": "/img/hedgehog.png"},
   {"src": "/img/parrot.png"},
   {"src": "/img/penguin.png"}
  
@@ -34,12 +35,7 @@ const [cards, setCards] = useState([])
         <div className ="grid">
           {
             cards.map(img => (
-              <div key={img.id} className="img">
-                <div>
-                  <img src={img.src} className="frontSide" />
-                  <img src="/img/background.png" className ="backSide" />
-                </div>
-              </div>
+              <Card key={img.id} img = {img}/>
               
             ))
           }
