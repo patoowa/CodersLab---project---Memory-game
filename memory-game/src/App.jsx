@@ -21,21 +21,26 @@ const [cards, setCards] = useState([])
   const shuffleImg = () => {
     const shuffledImg = [...imagesArray, ...imagesArray]
     .sort(() => Math.random() - 0.5)
-    .map((img)=>({...img, id: uuidv4()}))
+    .map((img)=>({...img, id: uuidv4(), status: "up"}))
 
     setCards(shuffledImg);
   }
+
+  const handleTurningCards = (img) => {
+        console.log(img)
+  }
+
   console.log(cards)
   return (
     <>
       <div className = "Game">
         <h1>Memory Game</h1>
         <button onClick = {shuffleImg}>Start</button>
-
-        <div className ="grid">
+        <button onClick = {()=>location.reload}>Restart</button>
+        <div className ="grid"> 
           {
             cards.map(img => (
-              <Card key={img.id} img = {img}/>
+              <Card key={img.id} img = {img} status={img.status} handleTurningCards={handleTurningCards}/>
               
             ))
           }
