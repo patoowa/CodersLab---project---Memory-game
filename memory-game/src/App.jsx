@@ -47,7 +47,7 @@ const [choice2, setChoice2] = useState(null)
         reset()
       }else {
         console.log('do not match')
-        setTimeout(()=> reset(),1000)
+        setTimeout(()=>  reset(),1000)
       }
     }
 

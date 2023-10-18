@@ -13,9 +13,22 @@
     transform: rotateY(90deg);
     position: absolute;
     background-color: #B619E4;
-    
+    transition: all ease-in 0.2s;
+
 }
 
 .choosed .frontSide {
     transform: rotateY(0deg);
+    transition-delay: 0.2s;
+}
+
+
+.backSide {
+    transition : all ease-in 0.2s;
+    transition-delay: 0.2s;
+}
+
+.choosed .backSide {
+    transform: rotateY(90deg);
+    transition-delay: 0s;
 }
