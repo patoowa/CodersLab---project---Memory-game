@@ -10,7 +10,7 @@ function Card({img, handleTurningCards}) {
   return (
     <div className="img">
         <div>
-            {img.status === 'down' ? '' :<img src={img.src} className="frontSide" />}
+            <img src={img.src} className="frontSide" />
             <img src="/img/background.png" className ="backSide" onClick={handleClick} />
         </div>
   </div>

@@ -5,17 +5,19 @@ import Card from './components/Card'
 
 
 const imagesArray = [
-  {"src": "/img/crab.png"},
-  {"src": "img/elephant.png"},
-  {"src": "/img/giraffe.png"},
-  {"src": "/img/hedgehog.png"},
-  {"src": "/img/parrot.png"},
-  {"src": "/img/penguin.png"}
+  {"src": "/img/crab.png", matched: false},
+  {"src": "img/elephant.png", matched: false},
+  {"src": "/img/giraffe.png", matched: false},
+  {"src": "/img/hedgehog.png", matched: false},
+  {"src": "/img/parrot.png", matched: false},
+  {"src": "/img/penguin.png", matched: false}
  
 ]
 
 function App() {
 const [cards, setCards] = useState([])
+const [choice1, setChoice1] = useState(null)
+const [choice2, setChoice2] = useState(null)
 
 
   const shuffleImg = () => {
@@ -27,10 +29,39 @@ const [cards, setCards] = useState([])
   }
 
   const handleTurningCards = (img) => {
-        console.log(img)
+      choice1 ? setChoice2(img) : setChoice1(img)
   }
 
+  useEffect(() => {
+    if(choice1 && choice2){
+      if(choice1.src === choice2.src){
+        setCards(p => {
+          return p.map(img => {
+            if(img.src === choice1.src){
+              return{...img, matched: true}
+            }else {
+              return img
+            }
+          })
+        })
+        reset()
+      }else {
+        console.log('do not match')
+        reset()
+      }
+    }
+
+  },[choice1, choice2])
+
   console.log(cards)
+  
+
+  const reset = () => {
+    setChoice1(null)
+    setChoice2(null)
+
+  }
+
   return (
     <>
       <div className = "Game">
