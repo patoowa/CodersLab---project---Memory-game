@@ -18,6 +18,7 @@ function App() {
 const [cards, setCards] = useState([])
 const [choice1, setChoice1] = useState(null)
 const [choice2, setChoice2] = useState(null)
+const [off, setOffState] = useState(false)
 
 
   const shuffleImg = () => {
@@ -34,6 +35,8 @@ const [choice2, setChoice2] = useState(null)
 
   useEffect(() => {
     if(choice1 && choice2){
+      setOffState(true)
+
       if(choice1.src === choice2.src){
         setCards(p => {
           return p.map(img => {
@@ -59,6 +62,7 @@ const [choice2, setChoice2] = useState(null)
   const reset = () => {
     setChoice1(null)
     setChoice2(null)
+    setOffState(false)
 
   }
 
@@ -71,7 +75,7 @@ const [choice2, setChoice2] = useState(null)
         <div className ="grid"> 
           {
             cards.map(img => (
-              <Card key={img.id} img = {img} status={img.status} handleTurningCards={handleTurningCards} choosed = {img === choice1 || img === choice2 || img.matched}/>
+              <Card key={img.id} img = {img} status={img.status} handleTurningCards={handleTurningCards} choosed = {img === choice1 || img === choice2 || img.matched} off={off}/>
               
             ))
           }

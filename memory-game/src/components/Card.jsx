@@ -1,10 +1,14 @@
 import React from 'react'
 import './Card.scss'
 
-function Card({img, handleTurningCards, choosed}) {
+function Card({img, handleTurningCards, choosed, off}) {
 
     const handleClick = () => {
+      if(!off){
+
         handleTurningCards(img)
+
+      }
     }
 
   return (
