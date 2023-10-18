@@ -47,14 +47,14 @@ const [choice2, setChoice2] = useState(null)
         reset()
       }else {
         console.log('do not match')
-        reset()
+        setTimeout(()=> reset(),1000)
       }
     }
 
   },[choice1, choice2])
 
   console.log(cards)
-  
+
 
   const reset = () => {
     setChoice1(null)
@@ -71,7 +71,7 @@ const [choice2, setChoice2] = useState(null)
         <div className ="grid"> 
           {
             cards.map(img => (
-              <Card key={img.id} img = {img} status={img.status} handleTurningCards={handleTurningCards}/>
+              <Card key={img.id} img = {img} status={img.status} handleTurningCards={handleTurningCards} choosed = {img === choice1 || img === choice2 || img.matched}/>
               
             ))
           }

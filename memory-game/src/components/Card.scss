@@ -8,3 +8,14 @@
     border: 3px solid #B619E4;
     border-radius: 8px;
 }
+
+.frontSide {
+    transform: rotateY(90deg);
+    position: absolute;
+    background-color: #B619E4;
+    
+}
+
+.choosed .frontSide {
+    transform: rotateY(0deg);
+}
