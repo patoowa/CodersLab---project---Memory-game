@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './App.scss'
 import Card from './components/Card'
+import Timer from './components/Timer';
 
 
 const imagesArray = [
@@ -21,12 +22,18 @@ const [choice2, setChoice2] = useState(null)
 const [off, setOffState] = useState(false)
 
 
+//timer 
+const [isRunning, setIsRunning] = useState(false);
+
+
+
   const shuffleImg = () => {
     const shuffledImg = [...imagesArray, ...imagesArray]
     .sort(() => Math.random() - 0.5)
     .map((img)=>({...img, id: uuidv4(), status: "up"}))
 
     setCards(shuffledImg);
+    setIsRunning(true)
   }
 
   const handleTurningCards = (img) => {
@@ -71,7 +78,7 @@ const [off, setOffState] = useState(false)
       <div className = "Game">
         <h1>Memory Game</h1>
         <button onClick = {shuffleImg}>Start</button>
-        <button onClick = {()=>location.reload}>Restart</button>
+        {/* <button onClick = {()=>location.reload}>Restart</button> */}
         <div className ="grid"> 
           {
             cards.map(img => (
@@ -81,6 +88,8 @@ const [off, setOffState] = useState(false)
           }
 
         </div>
+        <Timer isRunning={isRunning} />
+      
 
 
       </div>

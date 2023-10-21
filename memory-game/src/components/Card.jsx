@@ -14,7 +14,7 @@ function Card({img, handleTurningCards, choosed, off}) {
   return (
     <div className="img">
         <div className = {choosed ? "choosed" : ""}>
-            <img src={img.src} className="frontSide"  />
+            <img  src={img.src} className="frontSide"  />
         
             <img src="/img/background.png" className ="backSide" onClick={handleClick} />
         </div>
