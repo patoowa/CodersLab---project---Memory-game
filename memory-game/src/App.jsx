@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import './App.scss'
 import Card from './components/Card'
 import Timer from './components/Timer';
+import Lives from './components/Lives'
 
 
 const imagesArray = [
@@ -20,6 +21,8 @@ const [cards, setCards] = useState([])
 const [choice1, setChoice1] = useState(null)
 const [choice2, setChoice2] = useState(null)
 const [off, setOffState] = useState(false)
+const [lives, setLives] = useState(3);
+const [attempts, setAttempts] = useState(0);
 
 
 //timer 
@@ -33,7 +36,9 @@ const [isRunning, setIsRunning] = useState(false);
     .map((img)=>({...img, id: uuidv4(), status: "up"}))
 
     setCards(shuffledImg);
-    setIsRunning(true)
+    setIsRunning(true);
+    setLives(3); //Reset lives when starting
+    setAttempts(0)
   }
 
   const handleTurningCards = (img) => {
@@ -54,10 +59,17 @@ const [isRunning, setIsRunning] = useState(false);
             }
           })
         })
-        reset()
-      }else {
+        reset();
+      } else {
         console.log('do not match')
-        setTimeout(()=>  reset(),1000)
+        setTimeout(()=>  {
+          reset();
+          if(lives > 0) {
+            setLives(lives - 1);
+          }else {
+            console.log("Game over"); //add game over UI
+          }
+        },1000)
       }
     }
 
@@ -70,6 +82,7 @@ const [isRunning, setIsRunning] = useState(false);
     setChoice1(null)
     setChoice2(null)
     setOffState(false)
+    setAttempts(attempts + 1)
 
   }
 
@@ -89,7 +102,7 @@ const [isRunning, setIsRunning] = useState(false);
 
         </div>
         <Timer isRunning={isRunning} />
-      
+        <Lives lives={lives} />
 
 
       </div>
