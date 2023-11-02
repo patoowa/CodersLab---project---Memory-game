@@ -1,6 +1,6 @@
 import React from 'react'
 import './Card.scss'
-import GameOver from './GameOver';
+import GameOver from './GameOverModal';
 
 
 function Card({img, handleTurningCards, choosed, off, gameOver}) {

@@ -4,7 +4,7 @@ import './App.scss'
 import Card from './components/Card'
 import Timer from './components/Timer';
 import Lives from './components/Lives'
-import GameOver from './components/GameOver'
+import GameOverModal from './components/GameOverModal'
 
 
 const imagesArray = [
@@ -88,14 +88,18 @@ const [isRunning, setIsRunning] = useState(false);
 
   }
 
+  const handleCloseModal = () => {
+    setGameOver(false);
+    // Additional logic if required on modal close
+  };
+
   return (
     <>
       <div className = "Game">
         <h1>Memory Game</h1>
         <button onClick = {shuffleImg}>Start</button>
         {/* <button onClick = {()=>location.reload}>Restart</button> */}
-        <div className="grid-container">
-          {gameOver ? <GameOver /> : null}
+       
           <div className ="grid"> 
             {
               cards.map(img => (
@@ -106,7 +110,9 @@ const [isRunning, setIsRunning] = useState(false);
 
           </div>
         </div>
-      </div>  
+        {gameOver && (
+        <GameOverModal onClose={handleCloseModal} />
+        )}
 
           <Timer isRunning={isRunning} />
           <Lives lives={lives} />
