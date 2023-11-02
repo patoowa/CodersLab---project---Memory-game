@@ -1,7 +1,9 @@
 import React from 'react'
 import './Card.scss'
+import GameOver from './GameOver';
 
-function Card({img, handleTurningCards, choosed, off}) {
+
+function Card({img, handleTurningCards, choosed, off, gameOver}) {
 
     const handleClick = () => {
       if(!off){
@@ -12,13 +14,14 @@ function Card({img, handleTurningCards, choosed, off}) {
     }
 
   return (
-    <div className="img">
-        <div className = {choosed ? "choosed" : ""}>
-            <img  src={img.src} className="frontSide"  />
-        
-            <img src="/img/background.png" className ="backSide" onClick={handleClick} />
-        </div>
-  </div>
+    
+  gameOver ? <GameOver /> : <div className="img">
+    <div className = {choosed ? "choosed" : ""}>
+        <img  src={img.src} className="frontSide"  />
+    
+        <img src="/img/background.png" className ="backSide" onClick={handleClick} />
+    </div>
+</div>
   )
 }
 

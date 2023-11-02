@@ -4,6 +4,7 @@ import './App.scss'
 import Card from './components/Card'
 import Timer from './components/Timer';
 import Lives from './components/Lives'
+import GameOver from './components/GameOver'
 
 
 const imagesArray = [
@@ -23,6 +24,7 @@ const [choice2, setChoice2] = useState(null)
 const [off, setOffState] = useState(false)
 const [lives, setLives] = useState(3);
 const [attempts, setAttempts] = useState(0);
+const [gameOver, setGameOver] = useState(false);
 
 
 //timer 
@@ -67,7 +69,7 @@ const [isRunning, setIsRunning] = useState(false);
           if(lives > 0) {
             setLives(lives - 1);
           }else {
-            console.log("Game over"); //add game over UI
+            setGameOver(true);  //add game over UI
           }
         },1000)
       }
@@ -92,20 +94,25 @@ const [isRunning, setIsRunning] = useState(false);
         <h1>Memory Game</h1>
         <button onClick = {shuffleImg}>Start</button>
         {/* <button onClick = {()=>location.reload}>Restart</button> */}
-        <div className ="grid"> 
-          {
-            cards.map(img => (
-              <Card key={img.id} img = {img} status={img.status} handleTurningCards={handleTurningCards} choosed = {img === choice1 || img === choice2 || img.matched} off={off}/>
-              
-            ))
-          }
+        <div className="grid-container">
+          {gameOver ? <GameOver /> : null}
+          <div className ="grid"> 
+            {
+              cards.map(img => (
+                <Card key={img.id} img = {img} status={img.status} handleTurningCards={handleTurningCards} choosed = {img === choice1 || img === choice2 || img.matched} off={off} gameOver={gameOver}/>
+                
+              ))
+            }
 
+          </div>
         </div>
-        <Timer isRunning={isRunning} />
-        <Lives lives={lives} />
+      </div>  
+
+          <Timer isRunning={isRunning} />
+          <Lives lives={lives} />
+          
 
 
-      </div>
     </>
   )
 }
