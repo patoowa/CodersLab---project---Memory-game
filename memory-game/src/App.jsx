@@ -26,6 +26,7 @@ const [lives, setLives] = useState(3);
 const [attempts, setAttempts] = useState(0);
 const [gameOver, setGameOver] = useState(false);
 const [isRunning, setIsRunning] = useState(false);
+const [resetTimer, setResetTimer] = useState(Date.now())
 
 
 
@@ -36,7 +37,7 @@ const [isRunning, setIsRunning] = useState(false);
 
     setCards(shuffledImg);
     setIsRunning(true);
-    setLives(3); //Reset lives when starting
+    setLives(3); 
     setAttempts(0)
   }
 
@@ -86,9 +87,16 @@ const [isRunning, setIsRunning] = useState(false);
 
   }
 
+  const resetGame = () => {
+    shuffleImg(); 
+    setIsRunning(true); 
+    setResetTimer(Date.now());
+    setGameOver(false); 
+  };
+
   const handleCloseModal = () => {
     setGameOver(false);
-    // Additional logic if required on modal close
+
   };
 
   return (
@@ -96,7 +104,7 @@ const [isRunning, setIsRunning] = useState(false);
       <div className = "Game">
         <h1>Memory Game</h1>
         <button onClick = {shuffleImg}>Start</button>
-        {/* <button onClick = {()=>location.reload}>Restart</button> */}
+        <button onClick={resetGame}>Restart</button>
        
           <div className ="grid"> 
             {
@@ -112,7 +120,7 @@ const [isRunning, setIsRunning] = useState(false);
         <GameOverModal onClose={handleCloseModal} />
         )}
 
-          <Timer isRunning={isRunning} />
+          <Timer isRunning={isRunning} resetTimer={resetTimer} />
           <Lives lives={lives} />
           
 

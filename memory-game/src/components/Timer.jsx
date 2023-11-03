@@ -2,13 +2,14 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 
-function Timer({isRunning}) {
+function Timer({isRunning, resetTimer}) {
 
     const [time, setTime] = useState(0)
+   
 
+    let timer;
   
     useEffect(() => {
-      let timer;
   
       if (isRunning) {
         timer = setInterval(() => {
@@ -20,6 +21,13 @@ function Timer({isRunning}) {
         clearInterval(timer)
       }
     }, [isRunning]);
+
+
+    useEffect(() => {
+      if (resetTimer) {
+        timer = setTime(0); 
+      }
+    }, [resetTimer]);
   
   
     
