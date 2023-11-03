@@ -25,9 +25,6 @@ const [off, setOffState] = useState(false)
 const [lives, setLives] = useState(3);
 const [attempts, setAttempts] = useState(0);
 const [gameOver, setGameOver] = useState(false);
-
-
-//timer 
 const [isRunning, setIsRunning] = useState(false);
 
 
@@ -70,6 +67,7 @@ const [isRunning, setIsRunning] = useState(false);
             setLives(lives - 1);
           }else {
             setGameOver(true);  //add game over UI
+            setIsRunning(false)
           }
         },1000)
       }
