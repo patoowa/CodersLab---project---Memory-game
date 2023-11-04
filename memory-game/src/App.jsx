@@ -22,7 +22,7 @@ const [cards, setCards] = useState([])
 const [choice1, setChoice1] = useState(null)
 const [choice2, setChoice2] = useState(null)
 const [off, setOffState] = useState(false)
-const [lives, setLives] = useState(2);
+const [lives, setLives] = useState(3);
 const [attempts, setAttempts] = useState(0);
 const [gameOver, setGameOver] = useState(false);
 const [isRunning, setIsRunning] = useState(false);
@@ -38,13 +38,19 @@ const [gamePlayed, setGamePlayed] = useState(false);
 
     setCards(shuffledImg);
     setIsRunning(true);
-    setLives(2); 
+    setLives(3); 
     setAttempts(0)
   }
 
   const handleTurningCards = (img) => {
-      choice1 ? setChoice2(img) : setChoice1(img)
-  }
+    if (!gameOver) {
+      if (choice1) {
+        setChoice2(img);
+      } else {
+        setChoice1(img);
+      }
+    }
+  };
 
   useEffect(() => {
     if(choice1 && choice2){
@@ -62,13 +68,12 @@ const [gamePlayed, setGamePlayed] = useState(false);
         })
         reset();
       } else {
-        console.log('do not match')
         setTimeout(()=>  {
           reset();
           if(lives > 0) {
             setLives(lives - 1);
           }else {
-            setGameOver(true);  //add game over UI
+            setGameOver(true); 
             setIsRunning(false)
           }
         },1000)
@@ -97,6 +102,7 @@ const [gamePlayed, setGamePlayed] = useState(false);
 
   const handleCloseModal = () => {
     setGameOver(false);
+    setLives(0)
   };
 
 
@@ -110,14 +116,33 @@ const [gamePlayed, setGamePlayed] = useState(false);
   return (
     <>
       <div className = "Game">
+        
         <h1>Memory Game</h1>
-        <button onClick={gamePlayed ? resetGame : startGame}>
-          {gamePlayed ? 'Restart' : 'Start'}
-        </button>
+          <button onClick={gamePlayed ? resetGame : startGame}>
+              {gamePlayed ? 'Restart' : 'Start'}
+          </button>
+        <div className="container">
+          <Timer 
+          isRunning={!gameOver && isRunning} 
+          resetTimer={resetTimer} 
+          isGameOver={gameOver} />
+          <Lives 
+          className="lives" 
+          lives={lives} 
+          gameOver={gameOver}/>
+        </div>
+          
           <div className ="grid"> 
             {
               cards.map(img => (
-                <Card key={img.id} img = {img} status={img.status} handleTurningCards={handleTurningCards} choosed = {img === choice1 || img === choice2 || img.matched} off={off} gameOver={gameOver}/>
+                <Card 
+                key={img.id} 
+                img = {img} 
+                status={img.status} 
+                handleTurningCards={handleTurningCards} 
+                choosed = {img === choice1 || img === choice2 || img.matched} 
+                off={off} 
+                gameOver={gameOver}/>
                 
               ))
             }
@@ -125,11 +150,6 @@ const [gamePlayed, setGamePlayed] = useState(false);
         </div>
         {gameOver && <GameOverModal onClose={handleCloseModal} />}
 
-          <Timer 
-          isRunning={!gameOver && isRunning} 
-          resetTimer={resetTimer} 
-          isGameOver={gameOver} />
-          <Lives lives={lives} />
     </>
   )
 }

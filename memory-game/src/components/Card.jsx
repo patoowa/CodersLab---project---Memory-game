@@ -6,10 +6,8 @@ import GameOver from './GameOverModal';
 function Card({img, handleTurningCards, choosed, off, gameOver}) {
 
     const handleClick = () => {
-      if(!off){
-
+      if(!off && !gameOver){
         handleTurningCards(img)
-
       }
     }
 

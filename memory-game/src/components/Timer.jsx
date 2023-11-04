@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import './Timer.scss'
 
 
 function Timer({isRunning, resetTimer, isGameOver }) {
@@ -44,7 +45,7 @@ function Timer({isRunning, resetTimer, isGameOver }) {
   
     return (
       <>
-        <h1>Time: {formatTime(time)}</h1>
+        <div className ="timer">Time: {formatTime(time)}</div>
       </>
     )
   
