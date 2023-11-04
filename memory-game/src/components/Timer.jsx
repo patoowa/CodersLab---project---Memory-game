@@ -2,16 +2,16 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 
-function Timer({isRunning, resetTimer}) {
+function Timer({isRunning, resetTimer, isGameOver }) {
 
     const [time, setTime] = useState(0)
    
 
-    let timer;
-  
+    
     useEffect(() => {
+      let timer;
   
-      if (isRunning) {
+      if (isRunning && !isGameOver) {
         timer = setInterval(() => {
           setTime(p => p + 1);
         }, 1000);
@@ -20,12 +20,12 @@ function Timer({isRunning, resetTimer}) {
       return () => {
         clearInterval(timer)
       }
-    }, [isRunning]);
+    }, [isRunning, isGameOver]);
 
 
     useEffect(() => {
       if (resetTimer) {
-        timer = setTime(0); 
+       setTime(0); 
       }
     }, [resetTimer]);
   

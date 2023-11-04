@@ -22,11 +22,12 @@ const [cards, setCards] = useState([])
 const [choice1, setChoice1] = useState(null)
 const [choice2, setChoice2] = useState(null)
 const [off, setOffState] = useState(false)
-const [lives, setLives] = useState(3);
+const [lives, setLives] = useState(2);
 const [attempts, setAttempts] = useState(0);
 const [gameOver, setGameOver] = useState(false);
 const [isRunning, setIsRunning] = useState(false);
 const [resetTimer, setResetTimer] = useState(Date.now())
+const [gamePlayed, setGamePlayed] = useState(false);
 
 
 
@@ -37,7 +38,7 @@ const [resetTimer, setResetTimer] = useState(Date.now())
 
     setCards(shuffledImg);
     setIsRunning(true);
-    setLives(3); 
+    setLives(2); 
     setAttempts(0)
   }
 
@@ -96,16 +97,23 @@ const [resetTimer, setResetTimer] = useState(Date.now())
 
   const handleCloseModal = () => {
     setGameOver(false);
-
   };
+
+
+  const startGame = () => {
+    shuffleImg(); 
+    setResetTimer(Date.now()); 
+    setGamePlayed(true); 
+  };
+
 
   return (
     <>
       <div className = "Game">
         <h1>Memory Game</h1>
-        <button onClick = {shuffleImg}>Start</button>
-        <button onClick={resetGame}>Restart</button>
-       
+        <button onClick={gamePlayed ? resetGame : startGame}>
+          {gamePlayed ? 'Restart' : 'Start'}
+        </button>
           <div className ="grid"> 
             {
               cards.map(img => (
@@ -113,18 +121,15 @@ const [resetTimer, setResetTimer] = useState(Date.now())
                 
               ))
             }
-
           </div>
         </div>
-        {gameOver && (
-        <GameOverModal onClose={handleCloseModal} />
-        )}
+        {gameOver && <GameOverModal onClose={handleCloseModal} />}
 
-          <Timer isRunning={isRunning} resetTimer={resetTimer} />
+          <Timer 
+          isRunning={!gameOver && isRunning} 
+          resetTimer={resetTimer} 
+          isGameOver={gameOver} />
           <Lives lives={lives} />
-          
-
-
     </>
   )
 }
